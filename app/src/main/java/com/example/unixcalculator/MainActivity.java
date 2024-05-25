@@ -58,10 +58,19 @@ public class MainActivity extends AppCompatActivity {
         String res = "";
         if (0 <= logicalAddress && logicalAddress <= directPointerThreshold) {
             res += "Direct Pointer\n";
-            long blockId = (long) logicalAddress / blockSize;
+            long blockId = (long) logicalAddress / blockSize + 1;
             long offset = logicalAddress % blockSize;
-            res+= "Block id: " + blockId;
-            res += "\n";
+            String suffix = "";
+            if (blockId == 1) {
+                suffix = "st";
+            } else if (blockId == 2) {
+                suffix = "nd";
+            } else if (blockId == 3) {
+                suffix = "rd";
+            } else {
+                suffix = "th";
+            }
+            res+= blockId + suffix + " direct pointer\n";
             res += "Offset: " + offset;
             res += "\n";
         } else if (directPointerThreshold < logicalAddress && logicalAddress <= indirectPointerThreshold) {
